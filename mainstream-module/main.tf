@@ -1,12 +1,6 @@
-# legacy modules declare their own providers rather than inheriting
-# them from the parent. when multiple instances of a provider are
-# necessary, say to coordinate changes across two different AWS
-# regions, aliases can be used instead.
-#
-# https://www.terraform.io/docs/language/modules/develop/providers.html#legacy-shared-modules-with-provider-configurations
-
-# no explicit provider config declared. provider config is inherited from the
-# parent or aliases are explicitly injected.
+# note that no explicit provider config is declared. the provider config is
+# inherited from the parent or via aliases that are explicitly injected (in
+# the case of modules that require multiple providers)
 
 variable bucket {}
 variable object {}
@@ -20,7 +14,7 @@ resource aws_s3_bucket_object _ {
   bucket  = data.aws_s3_bucket._.bucket
   key     = var.object
   content = var.content
-  # tags{} are inherited from provider default_tags{}
+  # tags{} can be inherited from the parent provider's default_tags{}
 }
 
 output version_id {

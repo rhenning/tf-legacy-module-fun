@@ -1,12 +1,7 @@
-# legacy modules declare their own providers rather than inheriting
-# them from the parent. when multiple instances of a provider are
-# necessary, say to coordinate changes across two different AWS
-# regions, aliases can be used instead.
-#
-# https://www.terraform.io/docs/language/modules/develop/providers.html#legacy-shared-modules-with-provider-configurations
+# legacy modules often declare explicit provider configuration, such as the
+# example with region=x here. this is extremely common but not ideal, as our
+# demo will show.
 
-# note the explicit configuration with region=x here. extremely 
-# common but not ideal, as our demo will show.
 provider aws {
   region = var.region
 }
