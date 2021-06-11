@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "my-tf-test-bucket-blabla"
-    key    = "tf-legacy-module-fun/terraform.tfstate"
+    key    = "github.com/rhenning/tf-legacy-module-fun/terraform.tfstate"
     region = "us-east-1"
   }
 }
@@ -16,7 +16,26 @@ provider aws {
   }
 }
 
-resource random_pet _ {}
+provider aws {
+  alias  = "uw2"
+  region = "us-west-2"
+
+  default_tags {
+    tags = {
+      repo = "github.com/rhenning/tf-legacy-module-fun"
+    }
+  }
+}
+
+resource random_pet primary {
+  prefix = "pri"
+  length = 2
+}
+
+resource random_pet replica {
+  prefix = "rep"
+  length = 2
+}
 
 # init, plan, apply, then comment out the legacy module in an attempt to
 # remove its resources. running a plan will cause terraform to freak out
@@ -27,10 +46,10 @@ module legacy {
 
   # note that we're explicitly injecting a region here, used by the inner
   # provider, rather than letting the module inherit our provider config.
-  region  = "us-east-1"
-  bucket  = "my-tf-test-bucket-blabla"
-  object  = "tf-legacy-module-fun/testobject-legacy.txt"
-  content = random_pet._.id
+  primary_region = "us-east-1"
+  primary_bucket = "${random_pet.primary.id}-lm"
+  replica_region = "us-west-2"
+  replica_bucket = "${random_pet.primary.id}-lm"
 
   tags = {
     repo = "github.com/rhenning/tf-legacy-module-fun"
@@ -44,7 +63,11 @@ module legacy {
 module mainstream {
   source = "./mainstream-module"
 
-  bucket  = "my-tf-test-bucket-blabla"
-  object  = "tf-legacy-module-fun/testobject-mainstream.txt"
-  content = random_pet._.id
+  primary_bucket = "${random_pet.primary.id}-mm"
+  replica_bucket = "${random_pet.primary.id}-mm"
+
+  providers = {
+    aws.primary = aws
+    aws.replica = aws.uw2
+  }
 }

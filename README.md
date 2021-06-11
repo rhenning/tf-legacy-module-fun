@@ -116,3 +116,18 @@ replication. If the module being removed is declared as
 
 See [`main.tf`](main.tf) in this directory, along with the provided submodules,
 for examples of legacy and mainstream provider design patterns.
+
+## More Information
+
+The following Terraform documentation outlines the current best practices
+for module design and multi-provider management:
+
+- https://www.terraform.io/docs/language/modules/develop/providers.html
+- https://www.terraform.io/docs/language/providers/configuration.html
+
+In summary, it is no longer necessary to declare `provider{}` blocks
+_within modules_. They are still necessary for provider configuration in the
+root module (aka "top-level project").
+Use the [`terraform { required_providers {} }`](https://www.terraform.io/docs/language/modules/develop/providers.html#provider-version-constraints-in-modules)
+and [`terraform { required_providers { _ = { configuration_aliases = [] } } }`](https://www.terraform.io/docs/language/modules/develop/providers.html#provider-aliases-within-modules)
+constructs instead.
