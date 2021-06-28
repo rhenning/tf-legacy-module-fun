@@ -131,3 +131,7 @@ root module (aka "top-level project").
 Use the [`terraform { required_providers {} }`](https://www.terraform.io/docs/language/modules/develop/providers.html#provider-version-constraints-in-modules)
 and [`terraform { required_providers { _ = { configuration_aliases = [] } } }`](https://www.terraform.io/docs/language/modules/develop/providers.html#provider-aliases-within-modules)
 constructs instead.
+
+## Terraform Version Upgrades
+
+For help with Terraform version upgrades, see [`UPGRADING.md`](UPGRADING.md).
