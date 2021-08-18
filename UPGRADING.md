@@ -18,7 +18,8 @@ legacy projects to work with newer versions of Terraform.
 
 * increment any `.terraform-version` files to the latest version available in
   in the _current_ patch series before moving on to minor or major version
-  upgrades.
+  upgrades. 
+  Note: available versions can be found on the [Hashicorp release site](https://releases.hashicorp.com/terraform/)
   * _ex:_ if `0.12.6`, bump to `0.12.31` and test first, before going to `0.13.x`
 * pull a copy of the remote state to your local filesystem and create an override
   so that terraform prefers local state, rather than remote state, during your
