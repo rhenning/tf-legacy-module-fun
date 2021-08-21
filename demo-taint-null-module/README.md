@@ -7,12 +7,12 @@ Try this:
 
 ```
 terraform init
-terraform apply -auto-approve
-terraform apply -auto-approve
+terraform apply
+terraform apply
 terraform taint module._.time_sleep.zzz
-terraform apply -auto-approve
-terraform apply -auto-approve
-terraform destroy -auto-approve
+terraform apply
+terraform apply
+terraform destroy
 ```
 
 Now take a look at the source code of [`main.tf`](main.tf) in this directory,
