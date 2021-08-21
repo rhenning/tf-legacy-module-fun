@@ -114,8 +114,9 @@ replication. If the module being removed is declared as
 
 ## Example Code
 
-See [`main.tf`](main.tf) in this directory, along with the provided submodules,
-for examples of legacy and mainstream provider design patterns.
+See `demo-embedded-provider/main.tf`](demo-embedded-provider/main.tf), along
+with the included submodules, for examples of legacy and mainstream provider
+design patterns.
 
 ## More Information
 

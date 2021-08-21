@@ -42,7 +42,7 @@ resource random_pet replica {
 # as outlined in `README.md`, due to explicit embedded provider config.
 
 module legacy {
-  source = "./legacy-module"
+  source = "../modules/legacy-module"
 
   # note that we're explicitly injecting a region here, used by the inner
   # provider, rather than letting the module inherit our provider config.
@@ -61,7 +61,7 @@ module legacy {
 # this root/parent module
 
 module mainstream {
-  source = "./mainstream-module"
+  source = "../modules/mainstream-module"
 
   primary_bucket = "${random_pet.primary.id}-mm"
   replica_bucket = "${random_pet.primary.id}-mm"
