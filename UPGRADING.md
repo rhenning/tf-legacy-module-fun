@@ -25,13 +25,13 @@ legacy projects to work with newer versions of Terraform.
   so that terraform prefers local state, rather than remote state, during your
   refactor. ***take care not to commit `_override.tf` or `terraform.tfstate` to git.***
 
-        ```
+
         : cd into a terraform root module directory
         terraform init
         terraform state pull > terraform.tfstate
         printf 'terraform {\n  backend "local" {}\n}\n' > _override.tf
         terraform init -reconfigure
-        ```
+
 
 terraform is now using the local copy of the state file (in `./terraform.tfstate`)
 and has upgraded it to work with whatever version of terraform is now specified
